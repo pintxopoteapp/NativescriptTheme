@@ -1,0 +1,14 @@
+*.css
+!font-awesome.css
+*.js
+!.eslintrc.js
+*.map
+/platforms
+node_modules
+lib
+/nativescript-theme-core
+!scripts/builder.js
+!scripts/postinstall.js
+.vscode
+.idea
+.DS_Store

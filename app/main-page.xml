@@ -1,0 +1,34 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+  xmlns:drawer="nativescript-telerik-ui/sidedrawer"
+  xmlns:sidedrawer="/sidedrawer"
+  xmlns:actionBar="/actionBar"
+  navigatingTo="navigatingTo">
+  <Page.actionBar>
+    <actionBar:actionBar ActionBarTitle="NativeScript Themes" ></actionBar:actionBar>
+  </Page.actionBar>
+  <drawer:RadSideDrawer id="sideDrawer" drawerLocation="Left">
+      <drawer:RadSideDrawer.mainContent showOverNavigation="true">
+        <ScrollView class="page">
+          <StackLayout class="mainContent p-15">
+            <Button text="Basics" tap="{{ viewBasics }}" class="btn btn-primary m-y-5" />
+            <Button text="Buttons" tap="{{ viewButtons }}" class="btn btn-primary m-y-5" />
+            <Button text="Buttons Active" tap="{{ viewButtonsActive }}" class="btn btn-primary m-y-5" />
+            <Button text="Dialogs" tap="{{ viewDialogs }}" class="btn btn-primary m-y-5"/>
+            <Button text="Forms" tap="{{ viewForms }}" class="btn btn-primary m-y-5" />
+            <Button text="ListView" tap="{{ viewListView }}" class="btn btn-primary m-y-5" />
+            <Button text="Login" tap="{{ viewLogin }}" class="btn btn-primary m-y-5" />
+            <Button text="Progress & Activity" tap="{{ viewProgress }}" class="btn btn-primary m-y-5" />
+            <Button text="Searchbars" tap="{{ viewSearch }}" class="btn btn-primary m-y-5" />
+            <Button text="SegmentedBar" tap="{{ viewSegmentBar }}" class="btn btn-primary m-y-5" />
+            <Button text="Sliders" tap="{{ viewSliders }}" class="btn btn-primary m-y-5" />
+            <Button text="Switches" tap="{{ viewSwitches }}" class="btn btn-primary m-y-5" />
+            <Button text="Tabs" tap="{{ viewTabs }}" class="btn btn-primary m-y-5" />
+            <Button text="Themes" tap="{{ viewThemes }}" class="btn btn-primary m-y-5" />
+          </StackLayout>
+        </ScrollView>
+    </drawer:RadSideDrawer.mainContent>
+    <drawer:RadSideDrawer.drawerContent >
+            <sidedrawer:sidedrawer activeComponent='home'></sidedrawer:sidedrawer>
+    </drawer:RadSideDrawer.drawerContent>
+  </drawer:RadSideDrawer>
+</Page>

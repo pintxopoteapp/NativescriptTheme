@@ -1,0 +1,12 @@
+{
+  "name": "nativescript-theme-core",
+  "version": "0.2.5",
+  "description": "Telerik NativeScript Core Theme",
+  "author": "Telerik <support@telerik.com>",
+  "homepage": "https://www.nativescript.org",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NativeScript/theme"
+  }
+}
