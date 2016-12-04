@@ -1,22 +1,27 @@
 import { EventData } from "data/observable";
 import { Page } from "ui/page";
 import { BaseModel } from './base';
+import * as fs from 'file-system';
  var http = require("http");
-var Observable=require('data/observable');
+/*var Observable=require('data/observable');
 var ObservableArray=require('data/observable-array');
 var viewModel= new Observable.Observable({
     title:"hello",
     myItems:new ObservableArray.ObservableArray([]),
-})
+})*/
+
 class DemoItem {
-  constructor(title: string){
+  constructor(title: string,imagealt:string,street:string){
     this.title = title;
+    this.imagealt=imagealt;
+    this.street=street;
   }
 
   public title: string;
   public content: string = ' line text lorem ipsum dapibus, neque id cursus faucibus';
-  public image: string = "~/images/Thumb1.jpg";
-  public imagealt: string = "~/images/Thumb3.jpg";
+  public image: string;
+  public imagealt: string ;
+  public street:string;
 }
 
 //Alt images
@@ -28,40 +33,76 @@ export class ListViewModel extends BaseModel {
   public sampleItemsMulti: Array<any>;
   constructor(page:Page) {
     super(page);
-
-
-function loaddata() {
-    http.getJSON("http://pptest-kwiatchris.rhcloud.com/bars/findall").then(function (r) {
+//loaddata();
+var items = new Array<DemoItem>();
+  function loaddata() {
+      http.getJSON("http://pptest-kwiatchris.rhcloud.com/bars/findall").then(function (r) {
     //// Argument (r) is JSON!
-    /*  for(let i=0; i < r.length; i++){
+         //console.log(JSON.stringify(r));
+         
+     for(let i=0; i < r.length; i++){
       console.log(r[i]['name']);
+      items.push(new DemoItem(r[i]['name'],r[i]['img'],"calle "+r[i]['street']));
     }
-    */
-   //viewModel.title="pintxo Loaded";
-   r.data.map(function(item){
-       viewModel.myItems.push(item.data);
-   })
-    
+        
 }, function (e) {
     //// Argument (e) is Error!
-    //console.log(e);
+    console.log(e);
 });
 }
-    var items = new Array<DemoItem>();
-    for(let i=0; i <2; i++){
-      items.push(new DemoItem('frank'));
-    }
 
+ 
     this.set("sampleItems", items);
   }
 }
-
-export function navigatingTo(args: EventData) {
+/*
+export async function navigatingTo(args: EventData) {
+    //await  http.getJSON("http://pptest-kwiatchris.rhcloud.com/bars/findall");
     var page = <Page>args.object;
-    page.bindingContext = viewModel;
-}
+    page.bindingContext =new ListViewModel(page);
+}*/
+const nIssuesUrl = "http://pptest-kwiatchris.rhcloud.com/bars/findall";
 
-declare module namespace {
+export async function navigatingTo(args: EventData) {
+  //let page = args.object.page;
+  var page = <Page>args.object;
+  let issues = await http.getJSON(nIssuesUrl);
+  console.log("issues: " + issues);
+  page.bindingContext=new ListViewModel(page);
+  page.bindingContext = issues;
+}
+exports.onTap = function (args) {
+    var index = args.view;
+    var x=index.bindingContext;
+    console.log('Clicked item with index ' + x);
+   
+};
+
+
+var frameModule =require("ui/frame");
+exports.changePage=function(args) {
+    // console.log("Navigating");
+    var phone=args.object;
+     var item = args.bindingContext;
+    console.log(phone);
+    console.log(item);
+   // console.dump(phone);
+    var navigationOptions={
+        moduleName:'pages/pagetwo',
+        context:{param1: "value1",
+                param2: "value2"
+                }
+    }
+    
+    frameModule.topmost().navigate(navigationOptions);
+}
+function name(args) {
+   var btn = args.object;
+   console.log(btn);
+   var item = btn.bindingContext;
+   console.log(item);
+}
+/*declare module namespace {
 
     export interface Id {
         $oid: string;
@@ -83,6 +124,22 @@ declare module namespace {
     }
 
 }
+export class Bars{
+  
+    constructor(
+      public    _id: string,
+      public   name: string,
+      public   street: string,
+      public   img: string,
+      public   lat: string,
+      public   long: string,
+      public   point: string
+    ){}
+      
+        
+    
+}
+
 
 function deserialize(json, clazz) {
     var instance = new clazz(),
@@ -144,3 +201,26 @@ class SerializationHelper {
         return obj;
     }
 }
+
+class FileReader {
+    
+    static readJSON(path: string) {
+        var documents = fs.knownFolders.currentApp();
+        var jsonFile = documents.getFile(path);
+        return new Promise<Object>((resolve, reject) => {
+            try {
+
+                jsonFile.readText().then((content: string) => {
+                    let data = <Array<Object>>JSON.parse(content);
+                    resolve(data);   
+                     console.log(JSON.stringify(data));
+                });
+
+            }
+            catch (err) {
+                reject(err);
+                console.log(err);
+            }
+        });
+    }   
+}*/
