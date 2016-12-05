@@ -3,6 +3,7 @@ import { Page } from "ui/page";
 import { BaseModel } from './base';
 import * as fs from 'file-system';
  var http = require("http");
+ var frameModule =require("ui/frame");
 /*var Observable=require('data/observable');
 var ObservableArray=require('data/observable-array');
 var viewModel= new Observable.Observable({
@@ -71,26 +72,29 @@ export async function navigatingTo(args: EventData) {
   page.bindingContext=new ListViewModel(page);
   page.bindingContext = issues;
 }
-exports.onTap = function (args) {
-    var index = args.view;
-    var x=index.bindingContext;
-    console.log('Clicked item with index ' + x);
-   
+exports.onTap = async function (args) {
+    var index = args.index;
+    console.log('Clicked item with index onTap ' + index);
+    let issues = await http.getJSON(nIssuesUrl);
+    var navigationOptions={
+        moduleName:'pages/pagetwo',
+        context:{param1: index,
+                param2: issues
+                }
+    }
+     frameModule.topmost().navigate(navigationOptions);
 };
 
 
-var frameModule =require("ui/frame");
-exports.changePage=function(args) {
-    // console.log("Navigating");
-    var phone=args.object;
-     var item = args.bindingContext;
-    console.log(phone);
-    console.log(item);
-   // console.dump(phone);
+
+ /*exports.changePage= async function(args) {
+    var ind=args.index;
+    console.log('Clicked item with index changePage ' + ind);
+    let issues = await http.getJSON(nIssuesUrl);
     var navigationOptions={
         moduleName:'pages/pagetwo',
-        context:{param1: "value1",
-                param2: "value2"
+        context:{param1: ind,
+                param2: issues
                 }
     }
     
@@ -98,10 +102,10 @@ exports.changePage=function(args) {
 }
 function name(args) {
    var btn = args.object;
-   console.log(btn);
+   //console.log(btn);
    var item = btn.bindingContext;
-   console.log(item);
-}
+   //console.log(item);
+}*/
 /*declare module namespace {
 
     export interface Id {
@@ -224,3 +228,4 @@ class FileReader {
         });
     }   
 }*/
+//    desde xml:        itemTap="onTap"

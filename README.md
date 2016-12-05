@@ -64,3 +64,7 @@ npm publish
 ## LICENSE
 
 Apache 2.0
+//for https://appetize.io/dashboard
+//tns build android --emulator
+//for emulator en ordenador
+//tns livesync android --emulator --watch

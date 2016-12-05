@@ -2,6 +2,7 @@
 import { TNSFontIcon, fonticon } from 'nativescript-fonticon';
 import { isActive } from './sidedrawer/sidedrawer';
 require("nativescript-dom");
+require("./helpers");
 
 TNSFontIcon.debug = false;
 TNSFontIcon.paths = {

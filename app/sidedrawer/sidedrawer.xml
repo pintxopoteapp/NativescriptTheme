@@ -1,7 +1,7 @@
 <StackLayout class="sidedrawer-left" loaded="onLoad">
         <StackLayout class="sidedrawer-header">
             <Image src="~/sidedrawer/N.png" tap="{{ viewHome }}" class="sidedrawer-header-image"/>
-            <Label text="NativeScript Theme Project" textWrap="true" class="sidedrawer-header-brand" />
+            <Label text="Pintxo Pote Project" textWrap="true" class="sidedrawer-header-brand" />
         </StackLayout>
         <ScrollView>
           <StackLayout class="sidedrawer-content">
